@@ -617,3 +617,16 @@ footer {
   gap: 1rem;
   padding: 0 1rem;
 }
+
+
+
+@media (max-width: 768px) {
+ 
+
+  .logo {
+    height: 80px;
+    margin: 0 auto;
+    display: block;
+  }
+  
+}
