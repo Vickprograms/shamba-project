@@ -153,6 +153,21 @@ section {
   font-size: 1.05rem;
 }
 
+.live-logo {
+  margin-top: 2rem;
+  position: relative;
+}
+
+.live-logo img {
+  width: 100px;
+  height: 100px;
+}
+
+.live-logo p {
+  font-size: 1.2rem;
+  color: var(--text-dark);
+}
+
 /* Footer */
 footer {
   background-color: var(--sea-blue);

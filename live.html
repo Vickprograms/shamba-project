@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="logo.webp" type="image/x-icon" />
+
+  <title>Live Stream</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f5f8fa;
+      margin: 0;
+      padding: 40px;
+    }
+    .live-container {
+      max-width: 900px;
+      margin: auto;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      background: #000;
+    }
+    iframe {
+      width: 100%;
+      height: 500px;
+      border: none;
+    }
+    #offline-message {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #333;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+      <!-- Header -->
+  <header>
+    <div class="container flex justify-between items-center">
+      <!-- <section class="logo-video-section">
+        <video class="logo-video" autoplay muted loop playsinline>
+          <source src="logo.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </section> -->
+      <div class="header-content">
+        <img src="logo1.webp" alt="SIMSEO REALTORS LTD Logo" class="logo fade-in delay-2" />
+      <!-- <h1>SIMSEO REALTORS</h1> -->
+      <nav>
+        <h3><a href="index.html">Home</a></h3>
+    </nav>
+      </div>
+      
+    </div>
+  </header>
+
+  <h1>Live Broadcast</h1>
+
+  <div class="live-container">
+    <iframe id="youtube-live"
+      src="https://www.youtube.com/embed/live_stream?channel=UCbFHIIsenx5Mj_G-czkzYAg&autoplay=1&mute=1"
+      allow="autoplay; encrypted-media"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <div id="offline-message" style="display:none;" class="live-logo">
+        <img src="live.webp" alt="Live logo" class="logo fade-in delay-2" />
+    THERE ARE NO LIVE EVENTS AT THE MOMENT
+  </div>
+
+  <script>
+    // Detect if stream is offline using YouTube API
+    async function checkLiveStatus() {
+      const API_KEY = "AIzaSyBWKFTA05GCPPrvlylzxzzd_8p073DA4gs"; // 👈 replace this
+      const CHANNEL_ID = "UCbFHIIsenx5Mj_G-czkzYAg";
+
+      const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHANNEL_ID}&eventType=live&type=video&key=${API_KEY}`;
+
+      try {
+        let response = await fetch(url);
+        let data = await response.json();
+
+        if (data.items && data.items.length > 0) {
+          // Stream is live
+          document.getElementById("youtube-live").style.display = "block";
+          document.getElementById("offline-message").style.display = "none";
+        } else {
+          // Stream is offline
+          document.getElementById("youtube-live").style.display = "none";
+          document.getElementById("offline-message").style.display = "block";
+        }
+      } catch (error) {
+        console.error("Error checking live status:", error);
+      }
+    }
+
+    checkLiveStatus();
+    setInterval(checkLiveStatus, 60000); // check every minute
+  </script>
+
+</body>
+</html>
